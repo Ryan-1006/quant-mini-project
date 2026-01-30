@@ -54,8 +54,8 @@ def ensure_continuous_daily_index(df):
 
 def flag_outlier_returns(df, threshold=1.0):
     returns = df["close"].astype(float).pct_change()
-    outliers = returns.abs() > threshold
-    return outliers
+    df["is_outlier"] = returns.abs() > threshold
+    return df
 
 if __name__ == "__main__":
     df = load_btc_daily()
@@ -64,6 +64,6 @@ if __name__ == "__main__":
     df = ensure_continuous_daily_index(df)
 
     outliers = flag_outlier_returns(df)
-    print("Outlier days:", outliers.sum())
+    print("Outlier days:", df["is_outlier"].sum())
 
     df.to_csv("data/btc_daily.csv")
