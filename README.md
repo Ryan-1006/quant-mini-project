@@ -19,7 +19,7 @@ quant-mini-project/
 │   ├── features.py
 │   └── signals.py
 └── README.md
-
+```
 ---
 
 ## Pipeline Overview
