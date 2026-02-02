@@ -9,13 +9,15 @@ feature engineering, and signal design prior to backtesting.
 ---
 
 ## Project Structure
+
+```text
 quant-mini-project/
 ├── data/
-│ └── btc_daily.csv
+│   └── btc_daily.csv
 ├── src/
-│ ├── data_loader.py
-│ ├── features.py
-│ └── signals.py
+│   ├── data_loader.py
+│   ├── features.py
+│   └── signals.py
 └── README.md
 
 ---
