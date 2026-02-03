@@ -68,9 +68,38 @@ Quantitative features implemented:
 
 ---
 
+## Step 3: Signal Design
+
+**Objective**
+
+Define a simple, interpretable trading signal using previously engineered features, without introducing backtesting or execution logic.
+
+**Signal Logic**
+
+The strategy generates a binary long-only signal (0/1) based on:
+
+- **Positive momentum** over a fixed lookback window
+- **Low volatility regime**, defined as volatility below its historical median
+
+Formally:
+
+- Signal = 1 if
+	Momentum > 0
+	Volatility < median(volatility)
+- Signal = 0 otherwise
+
+**Implementation Notes**
+
+- Signal computation reuses feature functions from Step 2 (returns, momentum, volatility)
+- The output is a pd.Series aligned with the price index
+- Initial periods with insufficient data naturally result in 0 signals
+- No NaN values are propagated into the final signal to ensure downstream compatibility
+
+---
+
 ## Next Steps
 
-Signals, backtest logic, and robust evaluation are in progress
+Backtest logic, and robust evaluation are in progress
 and will be added incrementally.
 
 ---
