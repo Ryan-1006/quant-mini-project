@@ -21,31 +21,42 @@ def main():
     # === Step 3: Build signal ===
     signal = momentum_vol_signal(price)
 
-    # === Step 4: Run backtest (strategy) ===
-    results = run_backtest(price, signal)
+    # === Step 4: Run backtest ===
+    fee_bps = 10.0
+    slip_bps = 5.0
 
-    print("===== Strategy Results =====")
-    print("Total return:", results["total_return"])
-    print("Sharpe ratio:", results["sharpe_ratio"])
-    print("Max drawdown:", results["max_drawdown"])
+    results = run_backtest(price, signal, fee_bps=fee_bps, slip_bps=slip_bps)
 
-    # Plot strategy equity curve
-    equity = results["equity"]
-    equity.plot(title="Strategy Equity Curve")
+    print("===== Strategy Results (Net) =====")
+    print("Total return (gross):", results["total_return_gross"])
+    print("Total return (net):", results["total_return_net"])
+    print("Sharpe (net):", results["sharpe_net"])
+    print("Max drawdown (net):", results["max_drawdown_net"])
+    print("Trade count:", results["trade_count"])
+    print("Avg turnover:", results["avg_turnover"])
+    print("Total cost:", results["total_cost"])
+
+    # Plot strategy equity: Gross vs Net
+    ax = results["gross_equity"].plot(label="Strategy (Gross)", title="Strategy Equity: Gross vs Net")
+    results["net_equity"].plot(ax=ax, label="Strategy (Net)")
+    ax.legend()
     plt.show()
 
     # === Step 6: Baseline Buy & Hold ===
     bh_signal = pd.Series(1.0, index=price.index)
-    bh_results = run_backtest(price, bh_signal)
+    bh_results = run_backtest(price, bh_signal, fee_bps=fee_bps, slip_bps=slip_bps)
 
-    print("\n===== Buy & Hold Results =====")
-    print("Total return:", bh_results["total_return"])
-    print("Sharpe ratio:", bh_results["sharpe_ratio"])
-    print("Max drawdown:", bh_results["max_drawdown"])
+    print("\n===== Buy & Hold Results (Net) =====")
+    print("Total return (gross):", bh_results["total_return_gross"])
+    print("Total return (net):", bh_results["total_return_net"])
+    print("Sharpe (net):", bh_results["sharpe_net"])
+    print("Max drawdown (net):", bh_results["max_drawdown_net"])
+    print("Avg turnover:", bh_results["avg_turnover"])
+    print("Total cost:", bh_results["total_cost"])
 
-    # Plot equity comparison
-    ax = equity.plot(label="Strategy", title="Equity Comparison")
-    bh_results["equity"].plot(ax=ax, label="Buy & Hold")
+    # Plot equity comparison (Net)
+    ax = results["net_equity"].plot(label="Strategy (Net)", title="Equity Comparison (Net)")
+    bh_results["net_equity"].plot(ax=ax, label="Buy & Hold (Net)")
     ax.legend()
     plt.show()
 
