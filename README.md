@@ -7,6 +7,8 @@ This project demonstrates a clean quantitative research workflow on BTC daily da
 
 The goal is to show how a signal behaves after realistic trading frictions, not to optimize or overfit performance.
 
+The repository includes a **fixed BTC daily data snapshot** (data/btc_daily.csv) for reproducibility.
+
 ## What this project does
 
 - Load & clean BTC daily data
@@ -17,6 +19,8 @@ The goal is to show how a signal behaves after realistic trading frictions, not 
   - Transaction costs (fees + slippage in bps)
   - Turnover and trade count diagnostics
   - Equity curve, Total return, Sharpe ratio, Max Drawdown
+- Evaluate in-sample vs out-of-sample performance
+- Perform regime analysis (Bull vs Bear using MA200)
 - Compare performance with **Buy & Hold**
 
 ---
@@ -41,9 +45,11 @@ quant-mini-project/
 
 ```bash
 pip install numpy pandas matplotlib requests
+
 # Optional: regenerate data
 python src/data_loader.py
-# Run backtest
+
+# Run research & backtest
 python run.py
 ```
 
@@ -51,39 +57,44 @@ python run.py
 
 ## Example Results (current sample)
 
-**Strategy (Net):**
+**Strategy (Momentum + Vol filter)**
 
-- Total return (gross): ~ +32%
-- Total return (net): ~ +9%
-- Sharpe (net): ~ 0.25
-- Max Drawdown (net): ~ -25%
-- Trade count: ~ 128
-- Avg turnover: ~ 0.13
-- Total cost: ~ 19%
+- **Train:**
+  - Total return (net): ~ +182%
+  - Sharpe (net): ~ 0.91
+  - Max drawdown (net): ~ -35%
+  - Avg turnover: ~ 0.10
+- **Test (OOS):**
+  - Total return (net): ~ +17%
+  - Sharpe (net): ~ 0.41
+  - Max drawdown (net): ~ -29%
+  - Avg turnover: ~ 0.13
 
-**Buy & Hold (Net):**
+**Buy & Hold (Net)**
+- **Train:** Total return ~ +1060%, Sharpe ~ 1.07
+- **Test (OOS):** Total return ~ +56%, Sharpe ~ 0.67
 
-- Total return (net): ~ +190%
-- Sharpe (net): ~ 1.08
-- Avg turnover: ~ 0.001
-- Total cost: ~ 0.15%
+**Regime Analysis (Strategy, Net, MA200)**
+- Bull total return: ~ +236%, Sharpe ~ 1.21
+- Bear total return: ~ -1.5%, Sharpe ~ 0.11
 
-**Interpretation:**
-Although the strategy shows some gross performance, **most of the edge is eaten by transaction costs due to relatively high turnover**. In a strong bull market regime, Buy & Hold significantly outperforms the strategy both gross and net. This highlights the importance of **cost-aware backtesting and turnover control** in quantitative research.
+**Key Observations**
+- Performance degrades out-of-sample, indicating limited robustness.
+- Transaction costs materially reduce returns due to relatively high turnover.
+- Returns are concentrated in bull regimes; performance in bear regimes is close to flat.
+- Buy & Hold dominates during extended bull markets, while the strategy captures only a limited fraction of the upside.
 
 ---
 
-**Limitations & Next Steps**
+## Scope and Limitations
 
-- Only long/flat positions
-- Single-asset (BTC)
-- No out-of-sample testing
+- Single-asset (BTC), long/flat only
 - No position sizing or portfolio construction
+- No portfolio-level risk management
 
-**Possible extensions:**
+## Possible Extensions
 
-- Out-of-sample / regime-based evaluation
+- Position sizing / volatility targeting
 - Turnover reduction and signal smoothing
-- Position sizing
 - Multi-asset backtesting
-- Parameter sensitivity analysis
+- Parameter sensitivity / stability analysis
