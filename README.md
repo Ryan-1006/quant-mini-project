@@ -30,13 +30,15 @@ The repository includes a **fixed BTC daily data snapshot** (data/btc_daily.csv)
 ```text
 quant-mini-project/
 ├── run.py
+├── sql/
+│   └── market_data_eda.sql   # market data research queries in Postgres (returns/vol/regime)
 ├── data/
 │   └── btc_daily.csv
 └── src/
-    ├── data_loader.py   # data ingestion & cleaning
-    ├── features.py      # feature engineering
-    ├── signals.py       # signal design
-    └── backtest.py      # backtesting engine
+    ├── data_loader.py
+    ├── features.py
+    ├── signals.py
+    └── backtest.py
 ```
 
 ---
@@ -52,6 +54,12 @@ python src/data_loader.py
 # Run research & backtest
 python run.py
 ```
+---
+
+## SQL (Postgres)
+
+This repo also includes `sql/market_data_eda.sql` with examples of market-data EDA in SQL:
+daily returns, rolling volatility (window functions), monthly returns, and a simple MA200 bull/bear regime split.
 
 ---
 
