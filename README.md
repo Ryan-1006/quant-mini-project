@@ -58,8 +58,7 @@ python run.py
 
 ## SQL (Postgres)
 
-This repo also includes `sql/market_data_eda.sql` with examples of market-data EDA in SQL:
-daily returns, rolling volatility (window functions), monthly returns, and a simple MA200 bull/bear regime split.
+This repo also includes sql/market_data_eda.sql, which contains SQL queries for basic market data diagnostics: daily returns, rolling volatility (window functions), monthly returns, and a simple MA200 bull/bear regime split.
 
 ---
 
