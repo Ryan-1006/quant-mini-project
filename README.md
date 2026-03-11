@@ -5,6 +5,8 @@ by Dat Kiang
 
 This project demonstrates a clean quantitative research workflow on BTC daily data, from feature engineering and signal design to vectorized backtesting with transaction cost modeling, with a focus on research methodology, reproducibility, and honest evaluation against a Buy & Hold benchmark.
 
+A Tableau dashboard is also included to visualize key market metrics such as price trends, trading volume, and market behavior.
+
 The goal is to show how a signal behaves after realistic trading frictions, not to optimize or overfit performance.
 
 The repository includes a **fixed BTC daily data snapshot** (data/btc_daily.csv) for reproducibility.
@@ -22,6 +24,7 @@ The repository includes a **fixed BTC daily data snapshot** (data/btc_daily.csv)
 - Evaluate in-sample vs out-of-sample performance
 - Perform regime analysis (Bull vs Bear using MA200)
 - Compare performance with **Buy & Hold**
+- Build an interactive Tableau dashboard to visualize BTC price trends and trading activity
 
 ---
 
