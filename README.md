@@ -1,5 +1,5 @@
 # Quant Mini Project
-by Ryan Kiang
+by Dat Kiang
 
 ## Overview
 
@@ -31,9 +31,11 @@ The repository includes a **fixed BTC daily data snapshot** (data/btc_daily.csv)
 quant-mini-project/
 ├── run.py
 ├── sql/
-│   └── market_data_eda.sql   # market data research queries in Postgres (returns/vol/regime)
+│   └── market_data_eda.sql	# market data research queries in Postgres (returns/vol/regime)
 ├── data/
 │   └── btc_daily.csv
+├── images/
+│   └── btc_dashboard.png	# Tableau dashboard screenshot
 └── src/
     ├── data_loader.py
     ├── features.py
@@ -90,6 +92,31 @@ This repo also includes sql/market_data_eda.sql, which contains SQL queries for 
 - Transaction costs materially reduce returns due to relatively high turnover.
 - Returns are concentrated in bull regimes; performance in bear regimes is close to flat.
 - Buy & Hold dominates during extended bull markets, while the strategy captures only a limited fraction of the upside.
+
+---
+
+## Tableau Dashboard – Market Exploration
+
+A Tableau dashboard was created to explore BTC market behavior visually and complement the quantitative research workflow.
+
+### Dashboard Preview
+
+![BTC Dashboard](images/btc_dashboard.png)
+
+**Live Dashboard:**  https://public.tableau.com/app/profile/dat.kiang/viz/Book1_17731725954590/Dashboard1?publish=yes&showOnboarding=true
+
+The dashboard focuses on three aspects:
+
+### 1. Market Overview
+The price chart shows long-term BTC trends and major market cycles.
+
+### 2. Market Activity
+Volume data highlights periods of increased trading activity, often coinciding with major price movements.
+
+### 3. Market Behavior
+The visual patterns in price and volume help explain why momentum-based signals may work during strong trending markets but struggle during sideways periods.
+
+This dashboard acts as a visual exploration layer complementing the quantitative research pipeline implemented in Python.
 
 ---
 
