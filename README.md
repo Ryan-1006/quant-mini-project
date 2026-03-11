@@ -1,4 +1,4 @@
-# Quant Mini Project
+# BTC Market Data Analysis Project
 by Dat Kiang
 
 ## Overview
