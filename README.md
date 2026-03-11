@@ -106,7 +106,7 @@ A Tableau dashboard was created to explore BTC market behavior visually and comp
 
 ![BTC Dashboard](images/btc_dashboard.png)
 
-**Live Dashboard:**  https://public.tableau.com/app/profile/dat.kiang/viz/Book1_17731725954590/Dashboard1?publish=yes&showOnboarding=true
+**Live Dashboard:**  https://public.tableau.com/app/profile/dat.kiang/viz/Book1_17731725954590/Dashboard1
 
 The dashboard focuses on three aspects:
 
