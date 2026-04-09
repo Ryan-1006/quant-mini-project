@@ -1,30 +1,28 @@
-# BTC Market Data Analysis Project
+# BTC Market Data Analysis & Dashboard Project
 by Dat Kiang
 
 ## Overview
 
-This project demonstrates a clean quantitative research workflow on BTC daily data, from feature engineering and signal design to vectorized backtesting with transaction cost modeling, with a focus on research methodology, reproducibility, and honest evaluation against a Buy & Hold benchmark.
+This project demonstrates an end-to-end data analysis workflow using BTC market data, focusing on data cleaning, transformation, and visualization.
 
-A Tableau dashboard is also included to visualize key market metrics such as price trends, trading volume, and market behavior.
+The goal is to analyze trends and patterns in time-series data and present insights through dashboards to support data-driven decision-making.
 
-The goal is to show how a signal behaves after realistic trading frictions, not to optimize or overfit performance.
+The project emphasizes data processing, SQL-based analytics, and visualization rather than trading strategy optimization.
 
-The repository includes a **fixed BTC daily data snapshot** (data/btc_daily.csv) for reproducibility.
+## Business Value
+
+- Demonstrates ability to process and analyze large datasets  
+- Transforms raw data into actionable insights  
+- Builds dashboards to support data exploration  
+- Applies SQL and analytics skills in real-world scenarios
 
 ## What this project does
 
-- Load & clean BTC daily data
-- Build features: returns, momentum, volatility
-- Design a simple **long/flat** signal (momentum + volatility filter)
-- Run a **vectorized backtest** with:
-  - Gross vs Net returns
-  - Transaction costs (fees + slippage in bps)
-  - Turnover and trade count diagnostics
-  - Equity curve, Total return, Sharpe ratio, Max Drawdown
-- Evaluate in-sample vs out-of-sample performance
-- Perform regime analysis (Bull vs Bear using MA200)
-- Compare performance with **Buy & Hold**
-- Build an interactive Tableau dashboard to visualize BTC price trends and trading activity
+- Load and clean BTC market data
+- Transform raw data into structured datasets using Python and SQL
+- Compute key metrics such as returns, volatility, and rolling averages
+- Analyze trends and patterns in time-series data
+- Build a Tableau dashboard to visualize key insights (price trends, volume, market behavior)
 
 ---
 
@@ -34,7 +32,7 @@ The repository includes a **fixed BTC daily data snapshot** (data/btc_daily.csv)
 quant-mini-project/
 ├── run.py
 ├── sql/
-│   └── market_data_eda.sql	# market data research queries in Postgres (returns/vol/regime)
+│   └── market_data_eda.sql	# Market data research queries in Postgres (returns/vol/regime)
 ├── data/
 │   └── btc_daily.csv
 ├── images/
@@ -42,8 +40,8 @@ quant-mini-project/
 └── src/
     ├── data_loader.py
     ├── features.py
-    ├── signals.py
-    └── backtest.py
+    ├── signals.py	# Feature engineering logic
+    └── backtest.py	# Evaluation & validation logic
 ```
 
 ---
@@ -56,51 +54,34 @@ pip install numpy pandas matplotlib requests
 # Optional: regenerate data
 python src/data_loader.py
 
-# Run research & backtest
+# Run data analysis pipeline
 python run.py
 ```
 ---
 
 ## SQL (Postgres)
 
-This repo also includes sql/market_data_eda.sql, which contains SQL queries for basic market data diagnostics: daily returns, rolling volatility (window functions), monthly returns, and a simple MA200 bull/bear regime split.
+This repo includes SQL queries used to analyze time-series data, including calculating rolling metrics and identifying trends in market behavior.
 
 ---
 
-## Example Results (current sample)
+## Key Insights
 
-**Strategy (Momentum + Vol filter)**
+- Market behavior differs significantly across trending and sideways periods, affecting the stability of observed patterns.
 
-- **Train:**
-  - Total return (net): ~ +182%
-  - Sharpe (net): ~ 0.91
-  - Max drawdown (net): ~ -35%
-  - Avg turnover: ~ 0.10
-- **Test (OOS):**
-  - Total return (net): ~ +17%
-  - Sharpe (net): ~ 0.41
-  - Max drawdown (net): ~ -29%
-  - Avg turnover: ~ 0.13
+- Strong trends are often accompanied by increased trading volume, indicating higher market participation.
 
-**Buy & Hold (Net)**
-- **Train:** Total return ~ +1060%, Sharpe ~ 1.07
-- **Test (OOS):** Total return ~ +56%, Sharpe ~ 0.67
-
-**Regime Analysis (Strategy, Net, MA200)**
-- Bull total return: ~ +236%, Sharpe ~ 1.21
-- Bear total return: ~ -1.5%, Sharpe ~ 0.11
-
-**Key Observations**
-- Performance degrades out-of-sample, indicating limited robustness.
-- Transaction costs materially reduce returns due to relatively high turnover.
-- Returns are concentrated in bull regimes; performance in bear regimes is close to flat.
-- Buy & Hold dominates during extended bull markets, while the strategy captures only a limited fraction of the upside.
+- Results highlight the importance of validating insights on unseen data to avoid overfitting and ensure reliability.
 
 ---
 
 ## Tableau Dashboard – Market Exploration
 
-A Tableau dashboard was created to explore BTC market behavior visually and complement the quantitative research workflow.
+The dashboard was built to explore trends and patterns in BTC market data through interactive visualizations.
+
+It allows users to analyze price movements, trading activity, and key metrics over time.
+
+The goal is to support data exploration and insight generation rather than predictive modeling.
 
 ### Dashboard Preview
 
@@ -117,21 +98,25 @@ The price chart shows long-term BTC trends and major market cycles.
 Volume data highlights periods of increased trading activity, often coinciding with major price movements.
 
 ### 3. Market Behavior
-The visual patterns in price and volume help explain why momentum-based signals may work during strong trending markets but struggle during sideways periods.
+The visual patterns in price and volume help explain how certain patterns perform differently under various market conditions, especially between trending and sideways periods.
 
-This dashboard acts as a visual exploration layer complementing the quantitative research pipeline implemented in Python.
+This dashboard serves as a visual layer to support data exploration and decision-making.
 
 ---
 
 ## Scope and Limitations
 
-- Single-asset (BTC), long/flat only
-- No position sizing or portfolio construction
-- No portfolio-level risk management
+Scope:
+- Focuses on single-asset time-series data (BTC)
+- Uses historical data for analysis
+
+Limitations:
+- Limited dataset scope
+- Does not include external macroeconomic factors
 
 ## Possible Extensions
 
-- Position sizing / volatility targeting
-- Turnover reduction and signal smoothing
-- Multi-asset backtesting
-- Parameter sensitivity / stability analysis
+- Incorporate additional datasets (e.g., macro indicators, market sentiment)
+- Improve data pipeline automation
+- Enhance dashboard interactivity and usability
+- Apply the workflow to other datasets (e.g., sales, customer behavior)
